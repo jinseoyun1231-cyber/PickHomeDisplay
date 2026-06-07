@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		FD20AD0F2FD1B2150008219C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FD20AD0E2FD1B2150008219C /* SnapKit */; };
+		FD20AD112FD1B2150008219C /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = FD20AD102FD1B2150008219C /* SnapKit-Dynamic */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		FD212A6C2FCAAAE5001771D1 /* PickHomeDisplay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PickHomeDisplay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD20AD0F2FD1B2150008219C /* SnapKit in Frameworks */,
+				FD20AD112FD1B2150008219C /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,8 @@
 			);
 			name = PickHomeDisplay;
 			packageProductDependencies = (
+				FD20AD0E2FD1B2150008219C /* SnapKit */,
+				FD20AD102FD1B2150008219C /* SnapKit-Dynamic */,
 			);
 			productName = PickHomeDisplay;
 			productReference = FD212A6C2FCAAAE5001771D1 /* PickHomeDisplay.app */;
@@ -107,6 +116,9 @@
 			);
 			mainGroup = FD212A632FCAAAE5001771D1;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				FD20AD0D2FD1B2150008219C /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FD212A6D2FCAAAE5001771D1 /* Products */;
 			projectDirPath = "";
@@ -151,6 +163,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -181,6 +194,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -339,6 +353,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FD20AD0D2FD1B2150008219C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FD20AD0E2FD1B2150008219C /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FD20AD0D2FD1B2150008219C /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		FD20AD102FD1B2150008219C /* SnapKit-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FD20AD0D2FD1B2150008219C /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = "SnapKit-Dynamic";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FD212A642FCAAAE5001771D1 /* Project object */;
 }

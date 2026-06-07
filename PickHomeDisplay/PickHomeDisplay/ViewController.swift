@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ViewController: UIViewController {
     var profileImg = UIImageView()
@@ -28,6 +29,7 @@ class ViewController: UIViewController {
     var kaltext2 = UILabel()
     var kalBox3 = UIView()
     var kaltext3 = UILabel()
+    var calenderImg = UIImageView()
     
     @objc func modeChange() {
         let allLabels: [UILabel] = [profileSchool, profileName, todaymenu, menu1, menu2, menu3, kaltext1, kaltext2, kaltext3]
@@ -47,6 +49,8 @@ class ViewController: UIViewController {
             kalBox1.backgroundColor = UIColor(red: 0xc7/255, green: 0xb4/255, blue: 0xf8/255, alpha: 1)
             kalBox2.backgroundColor = UIColor(red: 0xc7/255, green: 0xb4/255, blue: 0xf8/255, alpha: 1)
             kalBox3.backgroundColor = UIColor(red: 0xc7/255, green: 0xb4/255, blue: 0xf8/255, alpha: 1)
+            kaltext2.textColor = UIColor(red: 0x22/255, green: 0x22/255, blue: 0x22/255, alpha: 1)
+            kaltext3.textColor = UIColor(red: 0x22/255, green: 0x22/255, blue: 0x22/255, alpha: 1)
         }
         else {
             view.backgroundColor = .white
@@ -73,7 +77,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         //UIColor(red: 0x22/255, green: 0x22/255, blue: 0x22/255, alpha: 1)
         
-        view.backgroundColor = UIColor(red: 0x22/255, green: 0x22/255, blue: 0x22/255, alpha: 1)
+        view.backgroundColor = .white
         
         profileImg.image = UIImage(systemName: "person.circle.fill")
         profileImg.contentMode = .scaleAspectFit
@@ -86,7 +90,7 @@ class ViewController: UIViewController {
         profileSchool.text = "대덕소프트웨어마이스터고등학교"
         profileSchool.font = .systemFont(ofSize: 16)
         
-        profileName.text = "1학년 2반 16번 홍성찬"
+        profileName.text = "1학년 2반 13번 진서윤"
         profileName.font = .systemFont(ofSize: 16)
         
         pickLogo.contentMode = .scaleAspectFit
@@ -130,28 +134,13 @@ class ViewController: UIViewController {
         kaltext3.text = "789.6Kal"
         kaltext3.font = .systemFont(ofSize: 12)
         
+        calenderImg.image = UIImage(systemName: "calendar.png")
         
-        profileImg.translatesAutoresizingMaskIntoConstraints = false
-        pickLogo.translatesAutoresizingMaskIntoConstraints = false
-        navigationButton.translatesAutoresizingMaskIntoConstraints = false
-        navigationBar2.translatesAutoresizingMaskIntoConstraints = false
-        profileSchool.translatesAutoresizingMaskIntoConstraints = false
-        profileName.translatesAutoresizingMaskIntoConstraints = false
-        todaymenu.translatesAutoresizingMaskIntoConstraints = false
-        todaymenuBox.translatesAutoresizingMaskIntoConstraints = false
-        breakfastTitle.translatesAutoresizingMaskIntoConstraints = false
-        lunchTitle.translatesAutoresizingMaskIntoConstraints = false
-        dinnerTitle.translatesAutoresizingMaskIntoConstraints = false
-        menu1.translatesAutoresizingMaskIntoConstraints = false
-        menu2.translatesAutoresizingMaskIntoConstraints = false
-        menu3.translatesAutoresizingMaskIntoConstraints = false
-        kalBox1.translatesAutoresizingMaskIntoConstraints = false
-        kalBox2.translatesAutoresizingMaskIntoConstraints = false
-        kalBox3.translatesAutoresizingMaskIntoConstraints = false
-        kaltext1.translatesAutoresizingMaskIntoConstraints = false
-        kaltext2.translatesAutoresizingMaskIntoConstraints = false
-        kaltext3.translatesAutoresizingMaskIntoConstraints = false
-        
+        modeChange()
+        addview()
+    }
+    
+    func addview() {
         view.addSubview(pickLogo)
         view.addSubview(profileImg)
         view.addSubview(navigationButton)
@@ -172,83 +161,99 @@ class ViewController: UIViewController {
         view.addSubview(kaltext2)
         view.addSubview(kalBox3)
         view.addSubview(kaltext3)
-        
-        NSLayoutConstraint.activate([
-            pickLogo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            pickLogo.topAnchor.constraint(equalTo: view.topAnchor, constant: 51.31),
-            pickLogo.widthAnchor.constraint(equalToConstant: 56),
-            pickLogo.heightAnchor.constraint(equalToConstant: 19.38),
-            
-            profileImg.topAnchor.constraint(equalTo: pickLogo.bottomAnchor, constant: 36),
-            profileImg.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            profileImg.widthAnchor.constraint(equalToConstant: 60),
-            profileImg.heightAnchor.constraint(equalToConstant: 60),
-            
-            navigationButton.leadingAnchor.constraint(equalTo: pickLogo.trailingAnchor, constant: 226),
-            navigationButton.centerYAnchor.constraint(equalTo: pickLogo.centerYAnchor),
-            navigationButton.widthAnchor.constraint(equalToConstant: 24),
-            navigationButton.heightAnchor.constraint(equalToConstant: 24),
-            
-            navigationBar2.leadingAnchor.constraint(equalTo: navigationButton.trailingAnchor, constant: 12),
-            navigationBar2.heightAnchor.constraint(equalTo: navigationButton.heightAnchor),
-            navigationBar2.widthAnchor.constraint(equalTo: navigationButton.widthAnchor),
-            navigationBar2.centerYAnchor.constraint(equalTo: navigationButton.centerYAnchor),
-            
-            profileSchool.leadingAnchor.constraint(equalTo: profileImg.trailingAnchor, constant: 24),
-            profileSchool.topAnchor.constraint(equalTo: profileImg.topAnchor, constant: 10),
-            
-            profileName.leadingAnchor.constraint(equalTo: profileSchool.leadingAnchor),
-            profileName.topAnchor.constraint(equalTo: profileSchool.bottomAnchor, constant: 2),
-            
-            todaymenu.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            todaymenu.topAnchor.constraint(equalTo: profileImg.bottomAnchor, constant: 52),
-            
-            todaymenuBox.widthAnchor.constraint(equalTo: view.widthAnchor),
-            todaymenuBox.topAnchor.constraint(equalTo: todaymenu.bottomAnchor, constant: 20),
-            todaymenuBox.heightAnchor.constraint(equalToConstant: 134),
-            
-            breakfastTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            breakfastTitle.centerYAnchor.constraint(equalTo: todaymenuBox.centerYAnchor),
-            
-            lunchTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            lunchTitle.topAnchor.constraint(equalTo: todaymenuBox.bottomAnchor, constant: 60.5),
-            
-            dinnerTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            dinnerTitle.topAnchor.constraint(equalTo: todaymenuBox.bottomAnchor, constant: 198.5),
-            
-            menu1.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 134.5),
-            menu1.centerYAnchor.constraint(equalTo: todaymenuBox.centerYAnchor),
-            
-            menu2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 134.5),
-            menu2.centerYAnchor.constraint(equalTo: lunchTitle.centerYAnchor),
-            
-            menu3.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 134.5),
-            menu3.centerYAnchor.constraint(equalTo: dinnerTitle.centerYAnchor),
-            
-            kalBox1.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            kalBox1.widthAnchor.constraint(equalToConstant: 72),
-            kalBox1.heightAnchor.constraint(equalToConstant: 22),
-            kalBox1.centerYAnchor.constraint(equalTo: todaymenuBox.centerYAnchor),
-            
-            kaltext1.centerXAnchor.constraint(equalTo: kalBox1.centerXAnchor),
-            kaltext1.centerYAnchor.constraint(equalTo: kalBox1.centerYAnchor),
-            
-            kalBox2.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            kalBox2.widthAnchor.constraint(equalToConstant: 72),
-            kalBox2.heightAnchor.constraint(equalToConstant: 22),
-            kalBox2.centerYAnchor.constraint(equalTo: lunchTitle.centerYAnchor),
-            
-            kaltext2.centerXAnchor.constraint(equalTo: kalBox2.centerXAnchor),
-            kaltext2.centerYAnchor.constraint(equalTo: kalBox2.centerYAnchor),
-            
-            kalBox3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            kalBox3.widthAnchor.constraint(equalToConstant: 72),
-            kalBox3.heightAnchor.constraint(equalToConstant: 22),
-            kalBox3.centerYAnchor.constraint(equalTo: dinnerTitle.centerYAnchor),
-            
-            kaltext3.centerXAnchor.constraint(equalTo: kalBox3.centerXAnchor),
-            kaltext3.centerYAnchor.constraint(equalTo: kalBox3.centerYAnchor),
-        ])
+        view.addSubview(calenderImg)
+    }
+    
+    func constraints() {
+        pickLogo.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(24)
+            make.top.equalToSuperview().offset(51.31)
+            make.width.equalTo(56)
+        }
+        navigationButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(60)
+            make.width.height.equalTo(24)
+            make.centerY.equalTo(pickLogo)
+        }
+        navigationBar2.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(-24)
+            make.width.height.equalTo(24)
+            make.centerY.equalTo(pickLogo)
+        }
+        profileImg.snp.makeConstraints { make in
+            make.top.equalTo(pickLogo.snp.bottom).offset(36)
+            make.width.height.equalTo(60)
+            make.leading.equalToSuperview().offset(24)
+        }
+        profileSchool.snp.makeConstraints { make in
+            make.leading.equalTo(profileImg.snp.trailing).inset(24)
+            make.top.equalTo(pickLogo.snp.top)
+        }
+        profileName.snp.makeConstraints { make in
+            make.top.equalTo(profileName.snp.bottom).offset(2)
+            make.leading.equalTo(profileImg)
+        }
+        todaymenu.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading).inset(24)
+            make.top.equalTo(profileImg.snp.bottom).inset(52)
+        }
+        todaymenuBox.snp.makeConstraints { make in
+            make.width.equalTo(view.snp.width)
+            make.height.equalTo(134)
+            make.top.equalTo(todaymenu).inset(20)
+        }
+        breakfastTitle.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(24)
+            make.centerY.equalTo(todaymenuBox)
+        }
+        menu1.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(134.5)
+            make.centerY.equalTo(todaymenuBox)
+        }
+        kalBox1.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(24)
+            make.width.equalTo(72)
+            make.height.equalTo(22)
+            make.centerY.equalTo(todaymenuBox)
+        }
+        kaltext1.snp.makeConstraints { make in
+            make.center.equalTo(kalBox1)
+        }
+        lunchTitle.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(24)
+            make.top.equalTo(todaymenuBox.snp.bottom).offset(60.5)
+        }
+        menu2.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(134.5)
+            make.centerY.equalTo(lunchTitle)
+        }
+        kalBox2.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(24)
+            make.width.equalTo(72)
+            make.height.equalTo(22)
+            make.centerY.equalTo(lunchTitle)
+        }
+        kaltext2.snp.makeConstraints { make in
+            make.center.equalTo(kalBox2)
+        }
+        dinnerTitle.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(24)
+            make.top.equalTo(todaymenuBox.snp.bottom).offset(198.5)
+        }
+        menu3.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(134.5)
+            make.centerY.equalTo(dinnerTitle)
+        }
+        kalBox3.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(24)
+            make.width.equalTo(72)
+            make.height.equalTo(22)
+            make.centerY.equalTo(dinnerTitle)
+        }
+        kaltext3.snp.makeConstraints { make in
+            make.center.equalTo(kalBox3)
+        }
+       
     }
 }
 
