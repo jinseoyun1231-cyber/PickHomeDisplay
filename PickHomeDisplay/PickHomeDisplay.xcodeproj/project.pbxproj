@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FD20AD0F2FD1B2150008219C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FD20AD0E2FD1B2150008219C /* SnapKit */; };
-		FD20AD112FD1B2150008219C /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = FD20AD102FD1B2150008219C /* SnapKit-Dynamic */; };
+		F26DA78E2FE18E4200966D47 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F26DA78D2FE18E4200966D47 /* SnapKit */; };
+		F26DA7912FE18E5D00966D47 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = F26DA7902FE18E5D00966D47 /* Then */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,8 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD20AD0F2FD1B2150008219C /* SnapKit in Frameworks */,
-				FD20AD112FD1B2150008219C /* SnapKit-Dynamic in Frameworks */,
+				F26DA78E2FE18E4200966D47 /* SnapKit in Frameworks */,
+				F26DA7912FE18E5D00966D47 /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,8 +85,8 @@
 			);
 			name = PickHomeDisplay;
 			packageProductDependencies = (
-				FD20AD0E2FD1B2150008219C /* SnapKit */,
-				FD20AD102FD1B2150008219C /* SnapKit-Dynamic */,
+				F26DA78D2FE18E4200966D47 /* SnapKit */,
+				F26DA7902FE18E5D00966D47 /* Then */,
 			);
 			productName = PickHomeDisplay;
 			productReference = FD212A6C2FCAAAE5001771D1 /* PickHomeDisplay.app */;
@@ -117,7 +117,8 @@
 			mainGroup = FD212A632FCAAAE5001771D1;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				FD20AD0D2FD1B2150008219C /* XCRemoteSwiftPackageReference "SnapKit" */,
+				F26DA78C2FE18E4200966D47 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				F26DA78F2FE18E5D00966D47 /* XCRemoteSwiftPackageReference "Then" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FD212A6D2FCAAAE5001771D1 /* Products */;
@@ -355,7 +356,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FD20AD0D2FD1B2150008219C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		F26DA78C2FE18E4200966D47 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -363,18 +364,26 @@
 				minimumVersion = 6.0.0;
 			};
 		};
+		F26DA78F2FE18E5D00966D47 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FD20AD0E2FD1B2150008219C /* SnapKit */ = {
+		F26DA78D2FE18E4200966D47 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FD20AD0D2FD1B2150008219C /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = F26DA78C2FE18E4200966D47 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
-		FD20AD102FD1B2150008219C /* SnapKit-Dynamic */ = {
+		F26DA7902FE18E5D00966D47 /* Then */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FD20AD0D2FD1B2150008219C /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
+			package = F26DA78F2FE18E5D00966D47 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

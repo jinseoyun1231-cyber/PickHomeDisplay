@@ -7,29 +7,87 @@
 
 import UIKit
 import SnapKit
+import Then
 
 class ViewController: UIViewController {
-    var profileImg = UIImageView()
-    var navigationBar2 = UIButton(type: .system)
-    var navigationButton = UIButton(type: .system)
-    var profileSchool = UILabel()
-    var pickLogo = UIImageView()
-    var profileName = UILabel()
-    var todaymenu = UILabel()
+    var profileImg = UIImageView().then {
+        $0.image = UIImage(systemName: "person.circle.fill")
+        $0.contentMode = .scaleAspectFit
+    }
+    var navigationBar2 = UIButton(type: .system).then {
+        $0.setImage(UIImage(systemName: "bell.fill"), for: .normal);
+    }
+    var navigationButton = UIButton(type: .system).then {
+        $0.setImage(UIImage(systemName: "sun.max.fill"), for: .normal);
+        $0.addTarget(self, action: #selector(modeChange), for: .touchUpInside)
+    }
+    var profileSchool = UILabel().then {
+        $0.text = "대덕소프트웨어마이스터고등학교"
+        $0.font = .systemFont(ofSize: 16)
+    }
+    var pickLogo = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+    }
+    var profileName = UILabel().then {
+        $0.text = "1학년 2반 13번 진서윤"
+        $0.font = .systemFont(ofSize: 16)
+    }
+    var todaymenu = UILabel().then {
+        $0.text = "오늘의 급식"
+        $0.font = .systemFont(ofSize: 16)
+    }
     var todaymenuBox = UIView()
-    var breakfastTitle = UILabel()
-    var lunchTitle = UILabel()
-    var dinnerTitle = UILabel()
-    var menu1 = UILabel()
-    var menu2 = UILabel()
-    var menu3 = UILabel()
-    var kalBox1 = UIView()
-    var kaltext1 = UILabel()
-    var kalBox2 = UIView()
-    var kaltext2 = UILabel()
-    var kalBox3 = UIView()
-    var kaltext3 = UILabel()
-    var calenderImg = UIImageView()
+    var breakfastTitle = UILabel().then {
+        $0.text = "조식"
+        $0.font = .systemFont(ofSize: 16, weight: .bold)
+    }
+    var lunchTitle = UILabel().then {
+        $0.text = "중식"
+        $0.font = .systemFont(ofSize: 16, weight: .bold)
+    }
+    var dinnerTitle = UILabel().then {
+        $0.text = "석식"
+        $0.font = .systemFont(ofSize: 16, weight: .bold)
+    }
+    var menu1 = UILabel().then {
+        $0.numberOfLines = 0
+        $0.text = "녹두찰밥\n스팸구이\n시리얼(블루베리)\n우유\n한우궁중떡볶이\n미니고구마파이"
+        $0.font = .systemFont(ofSize: 14)
+    }
+    var menu2 = UILabel().then {
+        $0.numberOfLines = 0
+        $0.text = "녹두찰밥\n스팸구이\n시리얼(블루베리)\n우유\n한우궁중떡볶이\n미니고구마파이"
+        $0.font = .systemFont(ofSize: 14)
+    }
+    var menu3 = UILabel().then {
+        $0.numberOfLines = 0
+        $0.text = "녹두찰밥\n스팸구이\n시리얼(블루베리)\n우유\n한우궁중떡볶이\n미니고구마파이"
+        $0.font = .systemFont(ofSize: 14)
+    }
+    var kalBox1 = UIView().then {
+        $0.layer.cornerRadius = 12
+    }
+    var kaltext1 = UILabel().then {
+        $0.text = "789.6Kal"
+        $0.font = .systemFont(ofSize: 12)
+    }
+    var kalBox2 = UIView().then {
+        $0.layer.cornerRadius = 12
+    }
+    var kaltext2 = UILabel().then {
+        $0.text = "789.6Kal"
+        $0.font = .systemFont(ofSize: 12)
+    }
+    var kalBox3 = UIView().then {
+        $0.layer.cornerRadius = 12
+    }
+    var kaltext3 = UILabel().then {
+        $0.text = "789.6Kal"
+        $0.font = .systemFont(ofSize: 12)
+    }
+    var calenderImg = UIImageView().then {
+        $0.image = UIImage(systemName: "calendar.png")
+    }
     
     @objc func modeChange() {
         let allLabels: [UILabel] = [profileSchool, profileName, todaymenu, menu1, menu2, menu3, kaltext1, kaltext2, kaltext3]
@@ -78,66 +136,9 @@ class ViewController: UIViewController {
         //UIColor(red: 0x22/255, green: 0x22/255, blue: 0x22/255, alpha: 1)
         
         view.backgroundColor = .white
-        
-        profileImg.image = UIImage(systemName: "person.circle.fill")
-        profileImg.contentMode = .scaleAspectFit
-        
-        navigationBar2.setImage(UIImage(systemName: "bell.fill"), for: .normal);
-        
-        navigationButton.setImage(UIImage(systemName: "sun.max.fill"), for: .normal);
-        navigationButton.addTarget(self, action: #selector(modeChange), for: .touchUpInside)
-        
-        profileSchool.text = "대덕소프트웨어마이스터고등학교"
-        profileSchool.font = .systemFont(ofSize: 16)
-        
-        profileName.text = "1학년 2반 13번 진서윤"
-        profileName.font = .systemFont(ofSize: 16)
-        
-        pickLogo.contentMode = .scaleAspectFit
-        
-        todaymenu.text = "오늘의 급식"
-        todaymenu.font = .systemFont(ofSize: 16)
-        
-        breakfastTitle.text = "조식"
-        breakfastTitle.font = .systemFont(ofSize: 16, weight: .bold)
-        
-        lunchTitle.text = "중식"
-        lunchTitle.font = .systemFont(ofSize: 16, weight: .bold)
-        
-        dinnerTitle.text = "석식"
-        dinnerTitle.font = .systemFont(ofSize: 16, weight: .bold)
-        
-        menu1.numberOfLines = 0
-        menu1.text = "녹두찰밥\n스팸구이\n시리얼(블루베리)\n우유\n한우궁중떡볶이\n미니고구마파이"
-        menu1.font = .systemFont(ofSize: 14)
-        
-        menu2.numberOfLines = 0
-        menu2.text = "녹두찰밥\n스팸구이\n시리얼(블루베리)\n우유\n한우궁중떡볶이\n미니고구마파이"
-        menu2.font = .systemFont(ofSize: 14)
-        
-        menu3.numberOfLines = 0
-        menu3.text = "녹두찰밥\n스팸구이\n시리얼(블루베리)\n우유\n한우궁중떡볶이\n미니고구마파이"
-        menu3.font = .systemFont(ofSize: 14)
-        
-        kalBox1.layer.cornerRadius = 12
-        
-        kaltext1.text = "789.6Kal"
-        kaltext1.font = .systemFont(ofSize: 12)
-        
-        kalBox2.layer.cornerRadius = 12
-        
-        kaltext2.text = "789.6Kal"
-        kaltext2.font = .systemFont(ofSize: 12)
-        
-        kalBox3.layer.cornerRadius = 12
-        
-        kaltext3.text = "789.6Kal"
-        kaltext3.font = .systemFont(ofSize: 12)
-        
-        calenderImg.image = UIImage(systemName: "calendar.png")
-        
         modeChange()
         addview()
+        constraints()
     }
     
     func addview() {
@@ -165,18 +166,19 @@ class ViewController: UIViewController {
     }
     
     func constraints() {
-        pickLogo.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(24)
-            make.top.equalToSuperview().offset(51.31)
-            make.width.equalTo(56)
+        pickLogo.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(24)
+            $0.top.equalToSuperview().offset(51.31)
+            $0.width.equalTo(56)
+            $0.height.equalTo(19.38)
         }
         navigationButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(60)
+            make.trailing.equalToSuperview().inset(60)
             make.width.height.equalTo(24)
             make.centerY.equalTo(pickLogo)
         }
         navigationBar2.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(-24)
+            make.trailing.equalToSuperview().inset(24)
             make.width.height.equalTo(24)
             make.centerY.equalTo(pickLogo)
         }
@@ -186,21 +188,22 @@ class ViewController: UIViewController {
             make.leading.equalToSuperview().offset(24)
         }
         profileSchool.snp.makeConstraints { make in
-            make.leading.equalTo(profileImg.snp.trailing).inset(24)
-            make.top.equalTo(pickLogo.snp.top)
+            make.leading.equalTo(profileImg.snp.trailing).offset(24)
+            make.top.equalTo(profileImg.snp.top).inset(10)
         }
-        profileName.snp.makeConstraints { make in
-            make.top.equalTo(profileName.snp.bottom).offset(2)
-            make.leading.equalTo(profileImg)
+        profileName.snp.makeConstraints {
+            $0.top.equalTo(profileSchool.snp.bottom).offset(2)
+            $0.leading.equalTo(profileImg.snp.trailing).offset(24)
+            $0.height.equalTo(19)
         }
         todaymenu.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading).inset(24)
-            make.top.equalTo(profileImg.snp.bottom).inset(52)
+            make.top.equalTo(profileImg.snp.bottom).offset(52)
         }
         todaymenuBox.snp.makeConstraints { make in
-            make.width.equalTo(view.snp.width)
+            make.width.equalToSuperview()
             make.height.equalTo(134)
-            make.top.equalTo(todaymenu).inset(20)
+            make.top.equalTo(todaymenu.snp.bottom).offset(20)
         }
         breakfastTitle.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(24)
@@ -253,7 +256,5 @@ class ViewController: UIViewController {
         kaltext3.snp.makeConstraints { make in
             make.center.equalTo(kalBox3)
         }
-       
     }
 }
-
