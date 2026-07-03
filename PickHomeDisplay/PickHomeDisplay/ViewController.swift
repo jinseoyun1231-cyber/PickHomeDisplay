@@ -3,6 +3,11 @@ import SnapKit
 import Then
 
 class ViewController: UIViewController {
+    var stackView = UIStackView().then {
+        $0.axis = .vertical
+        $0.spacing = 32
+    }
+    var schrollView = UIScrollView()
     
     var navi = UIView().then {
         $0.backgroundColor = .white
@@ -94,8 +99,37 @@ class ViewController: UIViewController {
     }
     
     var calenderImg = UIImageView().then {
-        $0.image = UIImage(systemName: "calendar.png")
+        $0.image = UIImage(named: "calender.png")
     }
+    var teacherToday = UILabel().then {
+        $0.text = "오늘의 자습 감독 선생님 입니다."
+        $0.font = .systemFont(ofSize: 13)
+    }
+    var f2 = UILabel().then {
+        $0.text = "2층"
+        $0.font = .systemFont(ofSize: 13)
+    }
+    var f3 = UILabel().then {
+        $0.text = "3층"
+        $0.font = .systemFont(ofSize: 13)
+    }
+    var f4 = UILabel().then {
+        $0.text = "4층"
+        $0.font = .systemFont(ofSize: 13)
+    }
+    var t2 = UILabel().then {
+        $0.text = "오상진 선생님"
+        $0.font = .systemFont(ofSize: 16)
+    }
+    var t3 = UILabel().then {
+        $0.text = "신지선 선생님"
+        $0.font = .systemFont(ofSize: 16)
+    }
+    var t4 = UILabel().then {
+        $0.text = "김현태 선생님"
+        $0.font = .systemFont(ofSize: 16)
+    }
+    
     var homeImg = UIButton(type: .system).then {
         $0.setImage(UIImage(systemName: "house.fill"), for: .normal)
         $0.contentMode = .scaleAspectFit
@@ -138,12 +172,13 @@ class ViewController: UIViewController {
     }
     
     @objc func modeChange() {
-        let blackAwhite: [Any] = [profileSchool, profileName, todaymenu, menu1, menu2, menu3, navigationBar2, navigationButton]
+        let blackAwhite: [Any] = [profileSchool, profileName, todaymenu, menu1, menu2, menu3, navigationBar2, navigationButton, t2, t3, t4]
         let main4:[Any] = [profileImg, homeImg, homeText]
         let main5: [UIView] = [kalBox1, kalBox2, kalBox3]
         let main7:[Any] = [breakfastTitle, lunchTitle, dinnerTitle]
         let gray5:[Any] = [forkImg, forkText, checkImg, checkText, calendarIcon, calendarText, wholeIcon, wholeText]
         let BG:[Any] = [kaltext2, kaltext3]
+        let main6: [UILabel] = [f2, f3, f4]
         
         if view.backgroundColor == .white {
             view.backgroundColor = UIColor.dBG
@@ -157,6 +192,7 @@ class ViewController: UIViewController {
                 }
             }
             main5.forEach { $0.backgroundColor = UIColor.dMain500}
+            main6.forEach { $0.textColor = UIColor.dMain600}
             main4.forEach {
                 if $0 is UILabel { ($0 as! UILabel).textColor = UIColor.dMain400 } else { ($0 as! UIView).tintColor = UIColor.dMain400}
             }
@@ -175,6 +211,9 @@ class ViewController: UIViewController {
             
             navi.layer.borderColor = UIColor.gray800.cgColor
             navi.backgroundColor = UIColor.dBG
+            
+            teacherBox.backgroundColor = UIColor.gray900
+            teacherToday.textColor = UIColor.gray50
         }
         else {
             view.backgroundColor = .white
@@ -190,6 +229,7 @@ class ViewController: UIViewController {
                     ($0 as! UILabel).textColor = UIColor.lMain700
                 }
             }
+            main6.forEach { $0.textColor = UIColor.lMain600}
             main5.forEach { $0.backgroundColor = UIColor.lMain500}
             gray5.forEach{
                 if $0 is UILabel { ($0 as! UILabel).textColor = UIColor.gray500 } else { ($0 as! UIView).tintColor = UIColor.gray500}
@@ -206,6 +246,9 @@ class ViewController: UIViewController {
             
             navi.layer.borderColor = UIColor.gray100.cgColor
             navi.backgroundColor = UIColor.lBG
+            
+            teacherBox.backgroundColor = UIColor.gray50
+            teacherToday.textColor = UIColor.gray900
         }
     }
     
@@ -219,19 +262,23 @@ class ViewController: UIViewController {
     }
     
     func addview() {
+        view.addSubview(schrollView)
+        schrollView.addSubview(stackView)
+        
         view.addSubview(topBar)
         topBar.addSubview(pickLogo)
         topBar.addSubview(navigationButton)
         topBar.addSubview(navigationBar2)
         
-        view.addSubview(profileBox)
+        stackView.addArrangedSubview(profileBox)
+        stackView.addArrangedSubview(mealBox)
+        stackView.addArrangedSubview(teacherBox)
+        
         profileBox.addSubview(profileImg)
         profileBox.addSubview(profileSchool)
         profileBox.addSubview(profileName)
         
-        view.addSubview(mealBox)
         mealBox.addSubview(todaymenu)
-        
         mealBox.addSubview(lunchTitle)
         mealBox.addSubview(dinnerTitle)
         mealBox.addSubview(menu2)
@@ -248,8 +295,14 @@ class ViewController: UIViewController {
         kalBox2.addSubview(kaltext2)
         kalBox3.addSubview(kaltext3)
         
-        view.addSubview(teacherBox)
         teacherBox.addSubview(calenderImg)
+        teacherBox.addSubview(teacherToday)
+        teacherBox.addSubview(f2)
+        teacherBox.addSubview(f3)
+        teacherBox.addSubview(f4)
+        teacherBox.addSubview(t2)
+        teacherBox.addSubview(t3)
+        teacherBox.addSubview(t4)
         
         view.addSubview(navi)
         navi.addSubview(homeImg)
@@ -265,6 +318,14 @@ class ViewController: UIViewController {
     }
     
     func constraints() {
+        schrollView.snp.makeConstraints {
+            $0.leading.trailing.width.equalToSuperview()
+            $0.top.equalTo(topBar.snp.bottom)
+            $0.bottom.equalTo(navi.snp.top)
+        }
+        stackView.snp.makeConstraints {
+            $0.width.centerX.top.bottom.equalToSuperview()
+        }
         topBar.snp.makeConstraints {
             $0.width.equalToSuperview()
             $0.top.equalTo(view.safeAreaLayoutGuide)
@@ -290,7 +351,6 @@ class ViewController: UIViewController {
         profileBox.snp.makeConstraints {
             $0.width.centerX.equalToSuperview()
             $0.height.equalTo(84)
-            $0.top.equalTo(topBar).offset(32)
         }
         profileImg.snp.makeConstraints {
             $0.centerY.equalToSuperview()
@@ -309,7 +369,6 @@ class ViewController: UIViewController {
         }
         
         mealBox.snp.makeConstraints {
-            $0.top.equalTo(profileBox.snp.bottom).offset(32)
             $0.width.equalToSuperview()
             $0.height.equalTo(457)
         }
@@ -423,6 +482,46 @@ class ViewController: UIViewController {
         wholeText.snp.makeConstraints {
             $0.centerX.equalTo(wholeIcon)
             $0.centerY.equalTo(calendarText)
+        }
+        
+        teacherBox.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(24)
+            $0.height.equalTo(160)
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(mealBox.snp.bottom).offset(32)
+        }
+        calenderImg.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(20)
+            $0.width.height.equalTo(140)
+            $0.centerY.equalTo(teacherBox)
+        }
+        teacherToday.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(27.5)
+            $0.leading.equalToSuperview().inset(20)
+        }
+        f2.snp.makeConstraints {
+            $0.top.equalTo(teacherToday.snp.bottom).offset(17.5)
+            $0.leading.equalTo(teacherToday)
+        }
+        f3.snp.makeConstraints {
+            $0.top.equalTo(f2.snp.bottom).offset(15)
+            $0.leading.equalTo(teacherToday)
+        }
+        f4.snp.makeConstraints {
+            $0.top.equalTo(f3.snp.bottom).offset(15)
+            $0.leading.equalTo(teacherToday)
+        }
+        t2.snp.makeConstraints {
+            $0.leading.equalTo(f2.snp.trailing).offset(16)
+            $0.centerY.equalTo(f2)
+        }
+        t3.snp.makeConstraints {
+            $0.leading.equalTo(t2)
+            $0.centerY.equalTo(f3)
+        }
+        t4.snp.makeConstraints {
+            $0.leading.equalTo(t2)
+            $0.centerY.equalTo(f4)
         }
     }
 }
