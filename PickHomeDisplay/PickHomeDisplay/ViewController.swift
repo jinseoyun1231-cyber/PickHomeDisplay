@@ -9,10 +9,7 @@ class ViewController: UIViewController {
         $0.spacing = 32
     }
     
-    var navi = UIView().then {
-        $0.backgroundColor = .white
-        $0.layer.borderWidth = 0.5
-    }
+    var navi = naviView()
     var topBar = TopBarView()
     var profileBox = ProfileView()
     var mealBox = UIView()
@@ -108,47 +105,6 @@ class ViewController: UIViewController {
         $0.font = .systemFont(ofSize: 16)
     }
     
-    var homeImg = UIButton(type: .system).then {
-        $0.setImage(UIImage(systemName: "house.fill"), for: .normal)
-        $0.contentMode = .scaleAspectFit
-    }
-    var homeText = UILabel().then {
-        $0.text = "홈"
-        $0.font = .systemFont(ofSize: 11)
-    }
-    var forkImg = UIButton(type: .system).then {
-        $0.setImage(UIImage(systemName: "fork.knife"), for: .normal)
-        $0.contentMode = .scaleAspectFit
-    }
-    var forkText = UILabel().then {
-        $0.text = "급식"
-        $0.font = .systemFont(ofSize: 11)
-    }
-    var checkImg = UIButton(type: .system).then {
-        $0.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
-        $0.contentMode = .scaleAspectFit
-    }
-    var checkText = UILabel().then {
-        $0.text = "신청"
-        $0.font = .systemFont(ofSize: 11)
-    }
-    var calendarIcon = UIButton(type: .system).then {
-        $0.setImage(UIImage(systemName: "calendar"), for: .normal)
-        $0.contentMode = .scaleAspectFit
-    }
-    var calendarText = UILabel().then {
-        $0.text = "일정"
-        $0.font = .systemFont(ofSize: 11)
-    }
-    var wholeIcon = UIButton(type: .system).then {
-        $0.setImage(UIImage(systemName: "rectangle.grid.2x2.fill"), for: .normal)
-        $0.contentMode = .scaleAspectFit
-    }
-    var wholeText = UILabel().then {
-        $0.text = "전체"
-        $0.font = .systemFont(ofSize: 11)
-    }
-    
     var lastestNotice = UILabel().then {
         $0.text = "최신 공지"
         $0.font = .systemFont(ofSize: 17)
@@ -195,12 +151,12 @@ class ViewController: UIViewController {
         let blackAwhite: [Any] = [profileBox.profileSchool, profileBox.profileName, todaymenu, menu1, menu2, menu3, topBar.navigationBar2, topBar.navigationButton, t2, t3, t4, notiTitle1, notiTitle2, notiTitle3]
         
         let main3:[Any] = [notiIcon1, notiIcon2, notiIcon3]
-        let main4:[Any] = [profileBox.profileImg, homeImg, homeText]
+        let main4:[Any] = [profileBox.profileImg, navi.homeImg, navi.homeText]
         let main5: [UIView] = [kalBox1, kalBox2, kalBox3]
         let main6: [UILabel] = [f2, f3, f4]
         let main7:[Any] = [breakfastTitle, lunchTitle, dinnerTitle]
         
-        let gray5:[Any] = [forkImg, forkText, checkImg, checkText, calendarIcon, calendarText, wholeIcon, wholeText]
+        let gray5:[Any] = [navi.forkImg, navi.forkText, navi.checkImg, navi.checkText, navi.calendarIcon, navi.calendarText, navi.wholeIcon, navi.wholeText]
         let gray6:[Any] = [dateNoti1, dateNoti2, dateNoti3]
         let BG:[Any] = [kaltext2, kaltext3]
         
@@ -310,6 +266,7 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
         topBar.setup()
         profileBox.setup()
+        navi.setup()
         addview()
         constraints()
         modeChange()
@@ -365,17 +322,6 @@ class ViewController: UIViewController {
         noticeBox.addSubview(dateNoti1)
         noticeBox.addSubview(dateNoti2)
         noticeBox.addSubview(dateNoti3)
-        
-        navi.addSubview(homeImg)
-        navi.addSubview(homeText)
-        navi.addSubview(forkImg)
-        navi.addSubview(forkText)
-        navi.addSubview(checkImg)
-        navi.addSubview(checkText)
-        navi.addSubview(calendarIcon)
-        navi.addSubview(calendarText)
-        navi.addSubview(wholeIcon)
-        navi.addSubview(wholeText)
         
     }
     
@@ -473,50 +419,7 @@ class ViewController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(-2)
             $0.bottom.equalToSuperview().inset(-2)
         }
-        homeImg.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(27)
-            $0.top.equalToSuperview().inset(8)
-            $0.width.height.equalTo(24)
-        }
-        homeText.snp.makeConstraints {
-            $0.centerX.equalTo(homeImg)
-            $0.top.equalTo(homeImg.snp.bottom).offset(2)
-        }
-        forkImg.snp.makeConstraints {
-            $0.centerY.equalTo(homeImg)
-            $0.leading.equalTo(homeImg.snp.trailing).offset(54)
-            $0.width.height.equalTo(24)
-        }
-        forkText.snp.makeConstraints {
-            $0.centerX.equalTo(forkImg)
-            $0.centerY.equalTo(homeText)
-        }
-        checkImg.snp.makeConstraints {
-            $0.centerY.equalTo(homeImg)
-            $0.leading.equalTo(forkImg.snp.trailing).offset(54)
-            $0.width.height.equalTo(24)
-        }
-        checkText.snp.makeConstraints {
-            $0.centerX.equalTo(checkImg)
-            $0.centerY.equalTo(homeText)
-        }
-        calendarIcon.snp.makeConstraints {
-            $0.centerY.height.width.equalTo(checkImg)
-            $0.leading.equalTo(checkImg.snp.trailing).offset(54)
-        }
-        calendarText.snp.makeConstraints {
-            $0.centerX.equalTo(calendarIcon)
-            $0.centerY.equalTo(checkText)
-        }
-        wholeIcon.snp.makeConstraints {
-            $0.centerY.height.width.equalTo(calendarIcon)
-            $0.leading.equalTo(calendarIcon.snp.trailing).offset(54)
-        }
-        wholeText.snp.makeConstraints {
-            $0.centerX.equalTo(wholeIcon)
-            $0.centerY.equalTo(calendarText)
-        }
-        
+                
         teacherBox.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(24)
             $0.height.equalTo(160)
