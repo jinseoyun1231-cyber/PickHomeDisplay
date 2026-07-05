@@ -16,7 +16,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		FD212A7E2FCAAAE6001771D1 /* Exceptions for "PickHomeDisplay" folder in "PickHomeDisplay" target */ = {
+		F27C6A572FFA23E3001964CA /* Exceptions for "PickHomeDisplay" folder in "PickHomeDisplay" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -29,7 +29,7 @@
 		FD212A6E2FCAAAE5001771D1 /* PickHomeDisplay */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				FD212A7E2FCAAAE6001771D1 /* Exceptions for "PickHomeDisplay" folder in "PickHomeDisplay" target */,
+				F27C6A572FFA23E3001964CA /* Exceptions for "PickHomeDisplay" folder in "PickHomeDisplay" target */,
 			);
 			path = PickHomeDisplay;
 			sourceTree = "<group>";

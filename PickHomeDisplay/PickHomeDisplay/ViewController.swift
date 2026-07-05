@@ -3,32 +3,24 @@ import SnapKit
 import Then
 
 class ViewController: UIViewController {
+    var scrollView = UIScrollView()
     var stackView = UIStackView().then {
         $0.axis = .vertical
         $0.spacing = 32
     }
-    var schrollView = UIScrollView()
     
     var navi = UIView().then {
         $0.backgroundColor = .white
         $0.layer.borderWidth = 0.5
     }
-    var topBar = UIView()
+    var topBar = TopBarView()
     var profileBox = UIView()
     var mealBox = UIView()
     var teacherBox = UIView().then {
         $0.layer.cornerRadius = 12
     }
+    var noticeBox = UIView()
     
-    var pickLogo = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
-    }
-    var navigationBar2 = UIButton(type: .system).then {
-        $0.setImage(UIImage(systemName: "bell.fill"), for: .normal);
-    }
-    var navigationButton = UIButton(type: .system).then {
-        $0.addTarget(self, action: #selector(modeChange), for: .touchUpInside)
-    }
     
     var profileSchool = UILabel().then {
         $0.text = "대덕소프트웨어마이스터고등학교"
@@ -171,16 +163,63 @@ class ViewController: UIViewController {
         $0.font = .systemFont(ofSize: 11)
     }
     
+    var lastestNotice = UILabel().then {
+        $0.text = "최신 공지"
+        $0.font = .systemFont(ofSize: 17)
+    }
+    var moreNotice = UIButton(type: .system).then {
+        $0.setTitle("더보기", for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 17)
+    }
+    var notiIcon1 = UIImageView().then {
+        $0.image = UIImage(systemName: "ellipsis.message.fill")
+    }
+    var notiIcon2 = UIImageView().then {
+        $0.image = UIImage(systemName: "ellipsis.message.fill")
+    }
+    var notiIcon3 = UIImageView().then {
+        $0.image = UIImage(systemName: "ellipsis.message.fill")
+    }
+    var notiTitle1 = UILabel().then {
+        $0.text = "주말 급식 신청 안내"
+        $0.font = .systemFont(ofSize: 17)
+    }
+    var notiTitle2 = UILabel().then {
+        $0.text = "외출 신청 안내"
+        $0.font = .systemFont(ofSize: 17)
+    }
+    var notiTitle3 = UILabel().then {
+        $0.text = "[중요] TOPCIT 시험날 일정 안내"
+        $0.font = .systemFont(ofSize: 17)
+    }
+    var dateNoti1 = UILabel().then {
+        $0.text = "1일 전"
+        $0.font = .systemFont(ofSize: 13)
+    }
+    var dateNoti2 = UILabel().then {
+        $0.text = "1달 전"
+        $0.font = .systemFont(ofSize: 13)
+    }
+    var dateNoti3 = UILabel().then {
+        $0.text = "2달 전"
+        $0.font = .systemFont(ofSize: 13)
+    }
+   
     @objc func modeChange() {
-        let blackAwhite: [Any] = [profileSchool, profileName, todaymenu, menu1, menu2, menu3, navigationBar2, navigationButton, t2, t3, t4]
+        let blackAwhite: [Any] = [profileSchool, profileName, todaymenu, menu1, menu2, menu3, topBar.navigationBar2, topBar.navigationButton, t2, t3, t4, notiTitle1, notiTitle2, notiTitle3]
+        
+        let main3:[Any] = [notiIcon1, notiIcon2, notiIcon3]
         let main4:[Any] = [profileImg, homeImg, homeText]
         let main5: [UIView] = [kalBox1, kalBox2, kalBox3]
-        let main7:[Any] = [breakfastTitle, lunchTitle, dinnerTitle]
-        let gray5:[Any] = [forkImg, forkText, checkImg, checkText, calendarIcon, calendarText, wholeIcon, wholeText]
-        let BG:[Any] = [kaltext2, kaltext3]
         let main6: [UILabel] = [f2, f3, f4]
+        let main7:[Any] = [breakfastTitle, lunchTitle, dinnerTitle]
+        
+        let gray5:[Any] = [forkImg, forkText, checkImg, checkText, calendarIcon, calendarText, wholeIcon, wholeText]
+        let gray6:[Any] = [dateNoti1, dateNoti2, dateNoti3]
+        let BG:[Any] = [kaltext2, kaltext3]
         
         if view.backgroundColor == .white {
+            // MARK: 다크모드로 만들기
             view.backgroundColor = UIColor.dBG
             
             blackAwhite.forEach {
@@ -196,15 +235,27 @@ class ViewController: UIViewController {
             main4.forEach {
                 if $0 is UILabel { ($0 as! UILabel).textColor = UIColor.dMain400 } else { ($0 as! UIView).tintColor = UIColor.dMain400}
             }
+            main3.forEach {
+                if $0 is UILabel {
+                    ($0 as! UILabel).textColor = UIColor.dMain300
+                }
+                else {
+                    ($0 as! UIView).tintColor = UIColor.dMain300
+                }
+            }
             gray5.forEach{
                 if $0 is UILabel { ($0 as! UILabel).textColor = UIColor.gray400 } else { ($0 as! UIView).tintColor = UIColor.gray400}
             }
+            gray6.forEach{
+                if $0 is UILabel { ($0 as! UILabel).textColor = UIColor.gray300 }
+            }
+            
             BG.forEach{
                 if $0 is UILabel { ($0 as! UILabel).textColor = UIColor.dBG } else { ($0 as! UIView).tintColor = UIColor.dBG}
             }
             
-            pickLogo.image = UIImage(named: "picklogoDark.png")
-            navigationButton.setImage(UIImage(systemName: "moon.fill"), for: .normal)
+            topBar.pickLogo.image = UIImage(named: "picklogoDark.png")
+            topBar.navigationButton.setImage(UIImage(systemName: "moon.fill"), for: .normal)
             
             todaymenu.textColor = UIColor.gray200
             todaymenuBox.backgroundColor = UIColor.dMain50
@@ -214,15 +265,14 @@ class ViewController: UIViewController {
             
             teacherBox.backgroundColor = UIColor.gray900
             teacherToday.textColor = UIColor.gray50
+            lastestNotice.textColor = UIColor.gray200
+            moreNotice.tintColor = UIColor.gray100
         }
         else {
             view.backgroundColor = .white
-            
+            // MARK: 라이트모드로 만들기
             blackAwhite.forEach {
                 if $0 is UILabel { ($0 as! UILabel).textColor = .black } else { ($0 as! UIButton).tintColor = .black }
-            }
-            main4.forEach {
-                if $0 is UILabel { ($0 as! UILabel).textColor = UIColor.lMain400 } else { ($0 as! UIView).tintColor = UIColor.lMain400}
             }
             main7.forEach {
                 if $0 is UILabel {
@@ -231,15 +281,29 @@ class ViewController: UIViewController {
             }
             main6.forEach { $0.textColor = UIColor.lMain600}
             main5.forEach { $0.backgroundColor = UIColor.lMain500}
+            main4.forEach {
+                if $0 is UILabel { ($0 as! UILabel).textColor = UIColor.lMain400 } else { ($0 as! UIView).tintColor = UIColor.lMain400}
+            }
+            main3.forEach {
+                if $0 is UILabel {
+                    ($0 as! UILabel).textColor = UIColor.lMain300
+                }
+                else {
+                    ($0 as! UIView).tintColor = UIColor.lMain300
+                }
+            }
             gray5.forEach{
                 if $0 is UILabel { ($0 as! UILabel).textColor = UIColor.gray500 } else { ($0 as! UIView).tintColor = UIColor.gray500}
+            }
+            gray6.forEach{
+                if $0 is UILabel { ($0 as! UILabel).textColor = UIColor.gray600 }
             }
             BG.forEach{
                 if $0 is UILabel { ($0 as! UILabel).textColor = UIColor.lBG } else { ($0 as! UIView).tintColor = UIColor.lBG}
             }
             
-            pickLogo.image = UIImage(named: "picklogoLight.png")
-            navigationButton.setImage(UIImage(systemName: "sun.max.fill"), for: .normal)
+            topBar.pickLogo.image = UIImage(named: "picklogoLight.png")
+            topBar.navigationButton.setImage(UIImage(systemName: "sun.max.fill"), for: .normal)
             
             todaymenu.textColor = UIColor.gray700
             todaymenuBox.backgroundColor = UIColor.lMain50
@@ -249,30 +313,33 @@ class ViewController: UIViewController {
             
             teacherBox.backgroundColor = UIColor.gray50
             teacherToday.textColor = UIColor.gray900
+            lastestNotice.textColor = UIColor.gray700
+            moreNotice.tintColor = UIColor.gray800
         }
     }
-    
+    // MARK: 뷰 디드 로드
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        modeChange()
+        topBar.LayoutTopBar()
         addview()
         constraints()
+        modeChange()
+
     }
     
     func addview() {
-        view.addSubview(schrollView)
-        schrollView.addSubview(stackView)
-        
+        view.addSubview(scrollView)
         view.addSubview(topBar)
-        topBar.addSubview(pickLogo)
-        topBar.addSubview(navigationButton)
-        topBar.addSubview(navigationBar2)
+        view.addSubview(navi)
+        
+        scrollView.addSubview(stackView)
         
         stackView.addArrangedSubview(profileBox)
         stackView.addArrangedSubview(mealBox)
         stackView.addArrangedSubview(teacherBox)
+        stackView.addArrangedSubview(noticeBox)
         
         profileBox.addSubview(profileImg)
         profileBox.addSubview(profileSchool)
@@ -304,7 +371,18 @@ class ViewController: UIViewController {
         teacherBox.addSubview(t3)
         teacherBox.addSubview(t4)
         
-        view.addSubview(navi)
+        noticeBox.addSubview(lastestNotice)
+        noticeBox.addSubview(moreNotice)
+        noticeBox.addSubview(notiIcon1)
+        noticeBox.addSubview(notiIcon2)
+        noticeBox.addSubview(notiIcon3)
+        noticeBox.addSubview(notiTitle1)
+        noticeBox.addSubview(notiTitle2)
+        noticeBox.addSubview(notiTitle3)
+        noticeBox.addSubview(dateNoti1)
+        noticeBox.addSubview(dateNoti2)
+        noticeBox.addSubview(dateNoti3)
+        
         navi.addSubview(homeImg)
         navi.addSubview(homeText)
         navi.addSubview(forkImg)
@@ -315,37 +393,24 @@ class ViewController: UIViewController {
         navi.addSubview(calendarText)
         navi.addSubview(wholeIcon)
         navi.addSubview(wholeText)
+        
     }
     
     func constraints() {
-        schrollView.snp.makeConstraints {
-            $0.leading.trailing.width.equalToSuperview()
-            $0.top.equalTo(topBar.snp.bottom)
-            $0.bottom.equalTo(navi.snp.top)
-        }
+        
         stackView.snp.makeConstraints {
-            $0.width.centerX.top.bottom.equalToSuperview()
+            $0.top.bottom.leading.trailing.equalTo(scrollView.contentLayoutGuide)
+            $0.width.equalTo(scrollView.frameLayoutGuide.snp.width)
         }
         topBar.snp.makeConstraints {
             $0.width.equalToSuperview()
-            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             $0.height.equalTo(34)
         }
-        pickLogo.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().inset(24)
-            $0.width.equalTo(56)
-            $0.height.equalTo(19.38)
-        }
-        navigationButton.snp.makeConstraints {
-            $0.trailing.equalTo(navigationBar2.snp.leading).offset(-24)
-            $0.width.height.equalTo(24)
-            $0.centerY.equalToSuperview()
-        }
-        navigationBar2.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(24)
-            $0.width.height.equalTo(24)
-            $0.centerY.equalToSuperview()
+        scrollView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(topBar.snp.bottom).offset(24)
+            $0.bottom.equalTo(navi.snp.top)
         }
         
         profileBox.snp.makeConstraints {
@@ -523,43 +588,56 @@ class ViewController: UIViewController {
             $0.leading.equalTo(t2)
             $0.centerY.equalTo(f4)
         }
+        
+        noticeBox.snp.makeConstraints {
+            $0.width.equalToSuperview()
+            $0.height.equalTo(377)
+        }
+        lastestNotice.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(8)
+            $0.leading.equalToSuperview().inset(24)
+        }
+        moreNotice.snp.makeConstraints {
+            $0.centerY.equalTo(lastestNotice)
+            $0.trailing.equalToSuperview().inset(24)
+        }
+        notiIcon1.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(24)
+            $0.width.height.equalTo(32)
+            $0.top.equalTo(lastestNotice).offset(44.5)
+        }
+        notiIcon2.snp.makeConstraints {
+            $0.centerX.height.width.equalTo(notiIcon1)
+            $0.top.equalTo(notiIcon1.snp.bottom).offset(49)
+        }
+        notiIcon3.snp.makeConstraints {
+            $0.centerX.height.width.equalTo(notiIcon1)
+            $0.top.equalTo(notiIcon2.snp.bottom).offset(49)
+        }
+        notiTitle1.snp.makeConstraints {
+            $0.bottom.equalTo(notiIcon1.snp.centerY).offset(-1.5)
+            $0.leading.equalTo(notiIcon1.snp.trailing).offset(24)
+        }
+        notiTitle2.snp.makeConstraints {
+            $0.bottom.equalTo(notiIcon2.snp.centerY).offset(-1.5)
+            $0.leading.equalTo(notiTitle1)
+        }
+        notiTitle3.snp.makeConstraints {
+            $0.bottom.equalTo(notiIcon3.snp.centerY).offset(-1.5)
+            $0.leading.equalTo(notiTitle1)
+        }
+        dateNoti1.snp.makeConstraints {
+            $0.top.equalTo(notiTitle1.snp.bottom).offset(8)
+            $0.leading.equalTo(notiTitle1)
+        }
+        dateNoti2.snp.makeConstraints {
+            $0.top.equalTo(notiTitle2.snp.bottom).offset(8)
+            $0.leading.equalTo(notiTitle1)
+        }
+        dateNoti3.snp.makeConstraints {
+            $0.top.equalTo(notiTitle3.snp.bottom).offset(8)
+            $0.leading.equalTo(notiTitle1)
+        }
     }
 }
-extension UIColor {
-    
-    static let dBG = UIColor(red: 0x22/255, green: 0x22/255, blue: 0x22/255, alpha: 1)
-    static let lBG = UIColor(red: 0xff/255, green: 0xff/255, blue: 0xff/255, alpha: 1)
-    
-    static let gray50 = UIColor(red: 0xf1/255, green: 0xf1/255, blue: 0xf2/255, alpha: 1)
-    static let gray100 = UIColor(red: 0xdd/255, green: 0xdc/255, blue: 0xdd/255, alpha: 1)
-    static let gray200 = UIColor(red: 0xc6/255, green: 0xc5/255, blue: 0xc7/255, alpha: 1)
-    static let gray300 = UIColor(red: 0xaf/255, green: 0xad/255, blue: 0xb1/255, alpha: 1)
-    static let gray400 = UIColor(red: 0x9d/255, green: 0x9c/255, blue: 0xa0/255, alpha: 1)
-    static let gray500 = UIColor(red: 0x8c/255, green: 0x8a/255, blue: 0x8f/255, alpha: 1)
-    static let gray600 = UIColor(red: 0x84/255, green: 0x82/255, blue: 0x87/255, alpha: 1)
-    static let gray700 = UIColor(red: 0x79/255, green: 0x77/255, blue: 0x7c/255, alpha: 1)
-    static let gray800 = UIColor(red: 0x6f/255, green: 0x6d/255, blue: 0x72/255, alpha: 1)
-    static let gray900 = UIColor(red: 0x5c/255, green: 0x5a/255, blue: 0x60/255, alpha: 1)
-    
-    static let dMain50 = UIColor(red: 0x98/255, green: 0x7c/255, blue: 0xf1/255, alpha: 1)
-    static let dMain100 = UIColor(red: 0xa6/255, green: 0x8c/255, blue: 0xf3/255, alpha: 1)
-    static let dMain200 = UIColor(red: 0xae/255, green: 0x96/255, blue: 0xf5/255, alpha: 1)
-    static let dMain300 = UIColor(red: 0xb7/255, green: 0x9f/255, blue: 0xf6/255, alpha: 1)
-    static let dMain400 = UIColor(red: 0xbd/255, green: 0xa7/255, blue: 0xf7/255, alpha: 1)
-    static let dMain500 = UIColor(red: 0xc7/255, green: 0xb4/255, blue: 0xf8/255, alpha: 1)
-    static let dMain600 = UIColor(red: 0xd1/255, green: 0xc1/255, blue: 0xf9/255, alpha: 1)
-    static let dMain700 = UIColor(red: 0xde/255, green: 0xd3/255, blue: 0xfb/255, alpha: 1)
-    static let dMain800 = UIColor(red: 0xeb/255, green: 0xe5/255, blue: 0xfd/255, alpha: 1)
-    static let dMain900 = UIColor(red: 0xf7/255, green: 0xf4/255, blue: 0xfe/255, alpha: 1)
-    
-    static let lMain50 = UIColor(red: 0xf2/255, green: 0xea/255, blue: 0xfe/255, alpha: 1)
-    static let lMain100 = UIColor(red: 0xe0/255, green: 0xcb/255, blue: 0xfe/255, alpha: 1)
-    static let lMain200 = UIColor(red: 0xcb/255, green: 0xa8/255, blue: 0xfd/255, alpha: 1)
-    static let lMain300 = UIColor(red: 0xb6/255, green: 0x85/255, blue: 0xfc/255, alpha: 1)
-    static let lMain400 = UIColor(red: 0xa6/255, green: 0x6a/255, blue: 0xfb/255, alpha: 1)
-    static let lMain500 = UIColor(red: 0x96/255, green: 0x50/255, blue: 0xfa/255, alpha: 1)
-    static let lMain600 = UIColor(red: 0x8e/255, green: 0x49/255, blue: 0xf9/255, alpha: 1)
-    static let lMain700 = UIColor(red: 0x83/255, green: 0x40/255, blue: 0xf9/255, alpha: 1)
-    static let lMain800 = UIColor(red: 0x79/255, green: 0x37/255, blue: 0xf8/255, alpha: 1)
-    static let lMain900 = UIColor(red: 0x68/255, green: 0x27/255, blue: 0xf6/255, alpha: 1)
-}
+
