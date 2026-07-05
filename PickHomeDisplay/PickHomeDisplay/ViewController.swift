@@ -14,26 +14,12 @@ class ViewController: UIViewController {
         $0.layer.borderWidth = 0.5
     }
     var topBar = TopBarView()
-    var profileBox = UIView()
+    var profileBox = ProfileView()
     var mealBox = UIView()
     var teacherBox = UIView().then {
         $0.layer.cornerRadius = 12
     }
     var noticeBox = UIView()
-    
-    
-    var profileSchool = UILabel().then {
-        $0.text = "대덕소프트웨어마이스터고등학교"
-        $0.font = .systemFont(ofSize: 16)
-    }
-    var profileName = UILabel().then {
-        $0.text = "1학년 2반 13번 진서윤"
-        $0.font = .systemFont(ofSize: 16)
-    }
-    var profileImg = UIImageView().then {
-        $0.image = UIImage(systemName: "person.circle.fill")
-        $0.contentMode = .scaleAspectFit
-    }
     
     var todaymenuBox = UIView()
     var todaymenu = UILabel().then {
@@ -206,10 +192,10 @@ class ViewController: UIViewController {
     }
    
     @objc func modeChange() {
-        let blackAwhite: [Any] = [profileSchool, profileName, todaymenu, menu1, menu2, menu3, topBar.navigationBar2, topBar.navigationButton, t2, t3, t4, notiTitle1, notiTitle2, notiTitle3]
+        let blackAwhite: [Any] = [profileBox.profileSchool, profileBox.profileName, todaymenu, menu1, menu2, menu3, topBar.navigationBar2, topBar.navigationButton, t2, t3, t4, notiTitle1, notiTitle2, notiTitle3]
         
         let main3:[Any] = [notiIcon1, notiIcon2, notiIcon3]
-        let main4:[Any] = [profileImg, homeImg, homeText]
+        let main4:[Any] = [profileBox.profileImg, homeImg, homeText]
         let main5: [UIView] = [kalBox1, kalBox2, kalBox3]
         let main6: [UILabel] = [f2, f3, f4]
         let main7:[Any] = [breakfastTitle, lunchTitle, dinnerTitle]
@@ -322,7 +308,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        topBar.LayoutTopBar()
+        topBar.setup()
+        profileBox.setup()
         addview()
         constraints()
         modeChange()
@@ -340,10 +327,6 @@ class ViewController: UIViewController {
         stackView.addArrangedSubview(mealBox)
         stackView.addArrangedSubview(teacherBox)
         stackView.addArrangedSubview(noticeBox)
-        
-        profileBox.addSubview(profileImg)
-        profileBox.addSubview(profileSchool)
-        profileBox.addSubview(profileName)
         
         mealBox.addSubview(todaymenu)
         mealBox.addSubview(lunchTitle)
@@ -416,21 +399,6 @@ class ViewController: UIViewController {
         profileBox.snp.makeConstraints {
             $0.width.centerX.equalToSuperview()
             $0.height.equalTo(84)
-        }
-        profileImg.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.width.height.equalTo(60)
-            $0.leading.equalToSuperview().inset(24)
-        }
-        profileSchool.snp.makeConstraints {
-            $0.leading.equalTo(profileImg.snp.trailing).offset(24)
-            $0.top.equalToSuperview().inset(22)
-            $0.height.equalTo(19)
-        }
-        profileName.snp.makeConstraints {
-            $0.top.equalTo(profileSchool.snp.bottom).offset(2)
-            $0.leading.equalTo(profileImg.snp.trailing).offset(24)
-            $0.height.equalTo(19)
         }
         
         mealBox.snp.makeConstraints {

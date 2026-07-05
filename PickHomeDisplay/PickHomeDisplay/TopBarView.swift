@@ -20,7 +20,7 @@ class TopBarView: UIView {
         $0.addTarget(self, action: #selector(ViewController.modeChange), for: .touchUpInside)
     }
     
-    func LayoutTopBar() {
+    func setup() {
         self.addSubview(pickLogo)
         self.addSubview(navigationButton)
         self.addSubview(navigationBar2)
