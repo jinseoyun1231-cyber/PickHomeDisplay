@@ -100,5 +100,5 @@ class naviView: UIView {
             $0.centerY.equalTo(calendarText)
         }
 
-    }네
+    }
 }

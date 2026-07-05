@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     var topBar = TopBarView()
     var profileBox = ProfileView()
     var mealBox = UIView()
-    var teacherBox = UIView().then {
+    var teacherBox = teacherView().then {
         $0.layer.cornerRadius = 12
     }
     var noticeBox = UIView()
@@ -73,38 +73,6 @@ class ViewController: UIViewController {
         $0.font = .systemFont(ofSize: 12)
     }
     
-    var calenderImg = UIImageView().then {
-        $0.image = UIImage(named: "calender.png")
-    }
-    var teacherToday = UILabel().then {
-        $0.text = "오늘의 자습 감독 선생님 입니다."
-        $0.font = .systemFont(ofSize: 13)
-    }
-    var f2 = UILabel().then {
-        $0.text = "2층"
-        $0.font = .systemFont(ofSize: 13)
-    }
-    var f3 = UILabel().then {
-        $0.text = "3층"
-        $0.font = .systemFont(ofSize: 13)
-    }
-    var f4 = UILabel().then {
-        $0.text = "4층"
-        $0.font = .systemFont(ofSize: 13)
-    }
-    var t2 = UILabel().then {
-        $0.text = "오상진 선생님"
-        $0.font = .systemFont(ofSize: 16)
-    }
-    var t3 = UILabel().then {
-        $0.text = "신지선 선생님"
-        $0.font = .systemFont(ofSize: 16)
-    }
-    var t4 = UILabel().then {
-        $0.text = "김현태 선생님"
-        $0.font = .systemFont(ofSize: 16)
-    }
-    
     var lastestNotice = UILabel().then {
         $0.text = "최신 공지"
         $0.font = .systemFont(ofSize: 17)
@@ -148,12 +116,12 @@ class ViewController: UIViewController {
     }
    
     @objc func modeChange() {
-        let blackAwhite: [Any] = [profileBox.profileSchool, profileBox.profileName, todaymenu, menu1, menu2, menu3, topBar.navigationBar2, topBar.navigationButton, t2, t3, t4, notiTitle1, notiTitle2, notiTitle3]
+        let blackAwhite: [Any] = [profileBox.profileSchool, profileBox.profileName, todaymenu, menu1, menu2, menu3, topBar.navigationBar2, topBar.navigationButton, teacherBox.t2, teacherBox.t3, teacherBox.t4, notiTitle1, notiTitle2, notiTitle3]
         
         let main3:[Any] = [notiIcon1, notiIcon2, notiIcon3]
         let main4:[Any] = [profileBox.profileImg, navi.homeImg, navi.homeText]
         let main5: [UIView] = [kalBox1, kalBox2, kalBox3]
-        let main6: [UILabel] = [f2, f3, f4]
+        let main6: [UILabel] = [teacherBox.f2, teacherBox.f3, teacherBox.f4]
         let main7:[Any] = [breakfastTitle, lunchTitle, dinnerTitle]
         
         let gray5:[Any] = [navi.forkImg, navi.forkText, navi.checkImg, navi.checkText, navi.calendarIcon, navi.calendarText, navi.wholeIcon, navi.wholeText]
@@ -206,7 +174,7 @@ class ViewController: UIViewController {
             navi.backgroundColor = UIColor.dBG
             
             teacherBox.backgroundColor = UIColor.gray900
-            teacherToday.textColor = UIColor.gray50
+            teacherBox.teacherToday.textColor = UIColor.gray50
             lastestNotice.textColor = UIColor.gray200
             moreNotice.tintColor = UIColor.gray100
         }
@@ -254,7 +222,7 @@ class ViewController: UIViewController {
             navi.backgroundColor = UIColor.lBG
             
             teacherBox.backgroundColor = UIColor.gray50
-            teacherToday.textColor = UIColor.gray900
+            teacherBox.teacherToday.textColor = UIColor.gray900
             lastestNotice.textColor = UIColor.gray700
             moreNotice.tintColor = UIColor.gray800
         }
@@ -266,6 +234,7 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
         topBar.setup()
         profileBox.setup()
+        teacherBox.setUp()
         navi.setup()
         addview()
         constraints()
@@ -301,15 +270,6 @@ class ViewController: UIViewController {
         kalBox1.addSubview(kaltext1)
         kalBox2.addSubview(kaltext2)
         kalBox3.addSubview(kaltext3)
-        
-        teacherBox.addSubview(calenderImg)
-        teacherBox.addSubview(teacherToday)
-        teacherBox.addSubview(f2)
-        teacherBox.addSubview(f3)
-        teacherBox.addSubview(f4)
-        teacherBox.addSubview(t2)
-        teacherBox.addSubview(t3)
-        teacherBox.addSubview(t4)
         
         noticeBox.addSubview(lastestNotice)
         noticeBox.addSubview(moreNotice)
@@ -425,39 +385,6 @@ class ViewController: UIViewController {
             $0.height.equalTo(160)
             $0.centerX.equalToSuperview()
             $0.top.equalTo(mealBox.snp.bottom).offset(32)
-        }
-        calenderImg.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(20)
-            $0.width.height.equalTo(140)
-            $0.centerY.equalTo(teacherBox)
-        }
-        teacherToday.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(27.5)
-            $0.leading.equalToSuperview().inset(20)
-        }
-        f2.snp.makeConstraints {
-            $0.top.equalTo(teacherToday.snp.bottom).offset(17.5)
-            $0.leading.equalTo(teacherToday)
-        }
-        f3.snp.makeConstraints {
-            $0.top.equalTo(f2.snp.bottom).offset(15)
-            $0.leading.equalTo(teacherToday)
-        }
-        f4.snp.makeConstraints {
-            $0.top.equalTo(f3.snp.bottom).offset(15)
-            $0.leading.equalTo(teacherToday)
-        }
-        t2.snp.makeConstraints {
-            $0.leading.equalTo(f2.snp.trailing).offset(16)
-            $0.centerY.equalTo(f2)
-        }
-        t3.snp.makeConstraints {
-            $0.leading.equalTo(t2)
-            $0.centerY.equalTo(f3)
-        }
-        t4.snp.makeConstraints {
-            $0.leading.equalTo(t2)
-            $0.centerY.equalTo(f4)
         }
         
         noticeBox.snp.makeConstraints {
