@@ -37,6 +37,10 @@ class mealView: UIView {
             $0.height.equalTo(134)
             $0.top.equalTo(lunchMenuBox.snp.bottom).offset(4)
         }
+        todaymenu.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(24)
+            $0.top.equalToSuperview().inset(8)
+        }
         breakfastMenuBox.setup()
         lunchMenuBox.setup()
         dinnerMenuBox.setup()
