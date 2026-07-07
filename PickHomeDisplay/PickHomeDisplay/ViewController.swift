@@ -16,65 +16,23 @@ class ViewController: UIViewController {
     var teacherBox = teacherView().then {
         $0.layer.cornerRadius = 12
     }
-    var noticeBox = UIView()
+    var noticeBox = NoticeView()
     
-    var lastestNotice = UILabel().then {
-        $0.text = "최신 공지"
-        $0.font = .systemFont(ofSize: 17)
-    }
-    var moreNotice = UIButton(type: .system).then {
-        $0.setTitle("더보기", for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 17)
-    }
-    var notiIcon1 = UIImageView().then {
-        $0.image = UIImage(systemName: "ellipsis.message.fill")
-    }
-    var notiIcon2 = UIImageView().then {
-        $0.image = UIImage(systemName: "ellipsis.message.fill")
-    }
-    var notiIcon3 = UIImageView().then {
-        $0.image = UIImage(systemName: "ellipsis.message.fill")
-    }
-    var notiTitle1 = UILabel().then {
-        $0.text = "주말 급식 신청 안내"
-        $0.font = .systemFont(ofSize: 17)
-    }
-    var notiTitle2 = UILabel().then {
-        $0.text = "외출 신청 안내"
-        $0.font = .systemFont(ofSize: 17)
-    }
-    var notiTitle3 = UILabel().then {
-        $0.text = "[중요] TOPCIT 시험날 일정 안내"
-        $0.font = .systemFont(ofSize: 17)
-    }
-    var dateNoti1 = UILabel().then {
-        $0.text = "1일 전"
-        $0.font = .systemFont(ofSize: 13)
-    }
-    var dateNoti2 = UILabel().then {
-        $0.text = "1달 전"
-        $0.font = .systemFont(ofSize: 13)
-    }
-    var dateNoti3 = UILabel().then {
-        $0.text = "2달 전"
-        $0.font = .systemFont(ofSize: 13)
-    }
-   
     @objc func modeChange() {
         let blackAwhite: [Any] = [profileBox.profileSchool, profileBox.profileName,
                                   mealBox.breakfastMenuBox.menu, mealBox.lunchMenuBox.menu, mealBox.dinnerMenuBox.menu,
                                   topBar.navigationBar2, topBar.navigationButton,
                                   teacherBox.t2, teacherBox.t3, teacherBox.t4,
-                                  notiTitle1, notiTitle2, notiTitle3]
+                                  noticeBox.noti1.notiTitle, noticeBox.noti2.notiTitle, noticeBox.noti3.notiTitle]
         
-        let main3:[Any] = [notiIcon1, notiIcon2, notiIcon3]
+        let main3:[Any] = [noticeBox.noti1.notiIcon, noticeBox.noti2.notiIcon, noticeBox.noti3.notiIcon]
         let main4:[Any] = [profileBox.profileImg, navi.homeImg, navi.homeText]
         let main5: [UIView] = [mealBox.breakfastMenuBox.kalBox, mealBox.lunchMenuBox.kalBox, mealBox.dinnerMenuBox.kalBox]
         let main6: [UILabel] = [teacherBox.f2, teacherBox.f3, teacherBox.f4]
         let main7:[Any] = [mealBox.breakfastMenuBox.title, mealBox.lunchMenuBox.title, mealBox.dinnerMenuBox.title]
         
         let gray5:[Any] = [navi.forkImg, navi.forkText, navi.checkImg, navi.checkText, navi.calendarIcon, navi.calendarText, navi.wholeIcon, navi.wholeText]
-        let gray6:[Any] = [dateNoti1, dateNoti2, dateNoti3]
+        let gray6:[Any] = [noticeBox.noti1.dateNoti, noticeBox.noti2.dateNoti, noticeBox.noti3.dateNoti]
         let BG:[Any] = [mealBox.lunchMenuBox.kaltext, mealBox.dinnerMenuBox.kaltext]
         
         mealBox.breakfastMenuBox.kaltext.textColor = .white
@@ -125,8 +83,8 @@ class ViewController: UIViewController {
             
             teacherBox.backgroundColor = UIColor.gray900
             teacherBox.teacherToday.textColor = UIColor.gray50
-            lastestNotice.textColor = UIColor.gray200
-            moreNotice.tintColor = UIColor.gray100
+            noticeBox.lastestNotice.textColor = UIColor.gray200
+            noticeBox.moreNotice.tintColor = UIColor.gray100
         }
         else {
             view.backgroundColor = .white
@@ -173,8 +131,8 @@ class ViewController: UIViewController {
             
             teacherBox.backgroundColor = UIColor.gray50
             teacherBox.teacherToday.textColor = UIColor.gray900
-            lastestNotice.textColor = UIColor.gray700
-            moreNotice.tintColor = UIColor.gray800
+            noticeBox.lastestNotice.textColor = UIColor.gray700
+            noticeBox.moreNotice.tintColor = UIColor.gray800
         }
     }
     // MARK: 뷰 디드 로드
@@ -182,11 +140,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        topBar.setup()
-        profileBox.setup()
-        mealBox.setup()
-        teacherBox.setUp()
-        navi.setup()
         addview()
         constraints()
         modeChange()
@@ -205,37 +158,29 @@ class ViewController: UIViewController {
         stackView.addArrangedSubview(teacherBox)
         stackView.addArrangedSubview(noticeBox)
         
-        noticeBox.addSubview(lastestNotice)
-        noticeBox.addSubview(moreNotice)
-        noticeBox.addSubview(notiIcon1)
-        noticeBox.addSubview(notiIcon2)
-        noticeBox.addSubview(notiIcon3)
-        noticeBox.addSubview(notiTitle1)
-        noticeBox.addSubview(notiTitle2)
-        noticeBox.addSubview(notiTitle3)
-        noticeBox.addSubview(dateNoti1)
-        noticeBox.addSubview(dateNoti2)
-        noticeBox.addSubview(dateNoti3)
-        
+        topBar.setup()
+        profileBox.setup()
+        mealBox.setup()
+        teacherBox.setUp()
+        noticeBox.setup()
+        navi.setup()
     }
     
     func constraints() {
-        
         stackView.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalTo(scrollView.contentLayoutGuide)
             $0.width.equalTo(scrollView.frameLayoutGuide.snp.width)
-        }
-        topBar.snp.makeConstraints {
-            $0.width.equalToSuperview()
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            $0.height.equalTo(34)
         }
         scrollView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(topBar.snp.bottom).offset(24)
             $0.bottom.equalTo(navi.snp.top)
         }
-        
+        topBar.snp.makeConstraints {
+            $0.width.equalToSuperview()
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.height.equalTo(34)
+        }
         profileBox.snp.makeConstraints {
             $0.width.centerX.equalToSuperview()
             $0.height.equalTo(84)
@@ -245,68 +190,22 @@ class ViewController: UIViewController {
             $0.width.equalToSuperview()
             $0.height.equalTo(457)
         }
-        navi.snp.makeConstraints {
-            $0.height.equalTo(86)
-            $0.leading.trailing.equalToSuperview().inset(-2)
-            $0.bottom.equalToSuperview().inset(-2)
-        }
-                
         teacherBox.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(24)
             $0.height.equalTo(160)
             $0.centerX.equalToSuperview()
             $0.top.equalTo(mealBox.snp.bottom).offset(32)
         }
-        
         noticeBox.snp.makeConstraints {
             $0.width.equalToSuperview()
             $0.height.equalTo(377)
         }
-        lastestNotice.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(8)
-            $0.leading.equalToSuperview().inset(24)
+        navi.snp.makeConstraints {
+            $0.height.equalTo(86)
+            $0.leading.trailing.equalToSuperview().inset(-2)
+            $0.bottom.equalToSuperview().inset(-2)
         }
-        moreNotice.snp.makeConstraints {
-            $0.centerY.equalTo(lastestNotice)
-            $0.trailing.equalToSuperview().inset(24)
-        }
-        notiIcon1.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(24)
-            $0.width.height.equalTo(32)
-            $0.top.equalTo(lastestNotice).offset(44.5)
-        }
-        notiIcon2.snp.makeConstraints {
-            $0.centerX.height.width.equalTo(notiIcon1)
-            $0.top.equalTo(notiIcon1.snp.bottom).offset(49)
-        }
-        notiIcon3.snp.makeConstraints {
-            $0.centerX.height.width.equalTo(notiIcon1)
-            $0.top.equalTo(notiIcon2.snp.bottom).offset(49)
-        }
-        notiTitle1.snp.makeConstraints {
-            $0.bottom.equalTo(notiIcon1.snp.centerY).offset(-1.5)
-            $0.leading.equalTo(notiIcon1.snp.trailing).offset(24)
-        }
-        notiTitle2.snp.makeConstraints {
-            $0.bottom.equalTo(notiIcon2.snp.centerY).offset(-1.5)
-            $0.leading.equalTo(notiTitle1)
-        }
-        notiTitle3.snp.makeConstraints {
-            $0.bottom.equalTo(notiIcon3.snp.centerY).offset(-1.5)
-            $0.leading.equalTo(notiTitle1)
-        }
-        dateNoti1.snp.makeConstraints {
-            $0.top.equalTo(notiTitle1.snp.bottom).offset(8)
-            $0.leading.equalTo(notiTitle1)
-        }
-        dateNoti2.snp.makeConstraints {
-            $0.top.equalTo(notiTitle2.snp.bottom).offset(8)
-            $0.leading.equalTo(notiTitle1)
-        }
-        dateNoti3.snp.makeConstraints {
-            $0.top.equalTo(notiTitle3.snp.bottom).offset(8)
-            $0.leading.equalTo(notiTitle1)
-        }
+              
     }
 }
 
