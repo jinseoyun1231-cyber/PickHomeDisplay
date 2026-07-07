@@ -1,10 +1,3 @@
-//
-//  teacherView.swift
-//  PickHomeDisplay
-//
-//  Created by Seoyun Jin on 7/5/26.
-//
-
 import UIKit
 import SnapKit
 import Then
